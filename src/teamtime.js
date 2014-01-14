@@ -99,7 +99,7 @@ var app = (function($, Handlebars, tm) {
     updateProjectTeam(project_id);
   };
 
-  var addTeammemberListener = function addTeammemberListener() {
+  var assignPersonListener = function assignPersonListener() {
     var project_id = $(this).data('project'),
       project = projects.get(project_id),
       person_id = $(this).val(),
@@ -174,8 +174,8 @@ var app = (function($, Handlebars, tm) {
       'available_team': $(team.toArray()).not(project.getTeam().toArray()).get()
     }));
 
-    $('#project-modal .select-project-team').unbind('change', addTeammemberListener);
-    $('#project-modal .select-project-team').change(addTeammemberListener);
+    $('#project-modal .select-project-team').unbind('change', assignPersonListener);
+    $('#project-modal .select-project-team').change(assignPersonListener);
 
     $('#project-modal').modal();
   };
@@ -252,8 +252,8 @@ var app = (function($, Handlebars, tm) {
       'available_team': $(team.toArray()).not(project.getTeam().toArray()).get()
     }));
 
-    $('#project-modal .select-project-team').unbind('change', addTeammemberListener);
-    $('#project-modal .select-project-team').change(addTeammemberListener);
+    $('#project-modal .select-project-team').unbind('change', assignPersonListener);
+    $('#project-modal .select-project-team').change(assignPersonListener);
   };
 
   app = {};
