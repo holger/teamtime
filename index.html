@@ -120,7 +120,7 @@
     <script type="text/html" id="tpl-teammember-projects-list">
       <ul class="projects">
         {{#person_projects}}
-          <li>{{name}} <a href="#{{../person_id}}-{{id}}" data-person="{{../person_id}}" data-project="{{id}}" class="unassign-project">x</a></li>
+          <li>{{name}} <a href="#{{../person_id}}-{{id}}" data-person="{{../person_id}}" data-project="{{id}}" class="unassign-project glyphicon glyphicon-trash text-danger"> </a></li>
         {{/person_projects}}
       </ul>
     </script>
@@ -160,7 +160,7 @@
     <script type="text/html" id="tpl-project-team-list">
       <ul class="team">
         {{#project_team}}
-          <li>{{name}} <a href="#{{../project_id}}-{{id}}" data-project="{{../project_id}}" data-person="{{id}}" class="unassign-person">x</a></li>
+          <li>{{name}} <a href="#{{../project_id}}-{{id}}" data-project="{{../project_id}}" data-person="{{id}}" class="unassign-person glyphicon glyphicon-trash text-danger"> </a></li>
         {{/project_team}}
       </ul>
     </script>

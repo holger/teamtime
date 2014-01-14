@@ -97,6 +97,7 @@ var app = (function($, Handlebars, tm) {
     person.unassignProject(project);
     updatePersonProjects(person_id);
     updateProjectTeam(project_id);
+    return false;
   };
 
   var assignPersonListener = function assignPersonListener() {
@@ -119,6 +120,7 @@ var app = (function($, Handlebars, tm) {
     project.unassignPerson(person);
     updatePersonProjects(person_id);
     updateProjectTeam(project_id);
+    return false;
   };
 
   var updatePersonProjects = function updatePersonProjects(person_id) {
