@@ -3,16 +3,20 @@ var app = (function($, Handlebars, tm) {
 
   var tpl_teammember = Handlebars.compile($('#tpl-teammember').html());
   var tpl_teammember_projects = Handlebars.compile($('#tpl-teammember-projects').html());
+  var tpl_teammember_projects_list = Handlebars.compile($('#tpl-teammember-projects-list').html());
   var tpl_projects_selector = Handlebars.compile($('#tpl-projects-selector').html());
   var tpl_project = Handlebars.compile($('#tpl-project').html());
   var tpl_project_team = Handlebars.compile($('#tpl-project-team').html());
+  var tpl_project_team_list = Handlebars.compile($('#tpl-project-team-list').html());
   var tpl_project_team_selector = Handlebars.compile($('#tpl-project-team-selector').html());
 
   Handlebars.registerPartial('tpl-teammember', tpl_teammember);
   Handlebars.registerPartial('tpl-teammember-projects', tpl_teammember_projects);
+  Handlebars.registerPartial('tpl-teammember-projects-list', tpl_teammember_projects_list);
   Handlebars.registerPartial('tpl-projects-selector', tpl_projects_selector);
   Handlebars.registerPartial('tpl-project', tpl_project);
   Handlebars.registerPartial('tpl-project-team', tpl_project_team);
+  Handlebars.registerPartial('tpl-project-team-list', tpl_project_team_list);
   Handlebars.registerPartial('tpl-project-team-selector', tpl_project_team_selector);
 
   var team = new tm.Team();
@@ -102,7 +106,7 @@ var app = (function($, Handlebars, tm) {
       tpl_teammember_projects({ 'person_projects': person.getProjects().toArray() })
     );
 
-    $("#person-modal[data-person='" + person.id + "'] .projects").replaceWith(tpl_teammember_projects(
+    $("#person-modal[data-person='" + person.id + "'] .projects").replaceWith(tpl_teammember_projects_list(
       { 'person_projects': person.getProjects().toArray() }
     ));
 
@@ -131,7 +135,7 @@ var app = (function($, Handlebars, tm) {
 
     $('#project-modal .modal-title').html(project.name);
 
-    $('#project-modal .modal-body .team').replaceWith(tpl_project_team({
+    $('#project-modal .modal-body .team').replaceWith(tpl_project_team_list({
       'project_team': project.getTeam().toArray()
     }));
 
@@ -151,7 +155,7 @@ var app = (function($, Handlebars, tm) {
 
     $('#person-modal .modal-title').html(person.name);
 
-    $('#person-modal .modal-body .projects').replaceWith(tpl_teammember_projects({
+    $('#person-modal .modal-body .projects').replaceWith(tpl_teammember_projects_list({
       'person_projects': person.getProjects().toArray()
     }));
 
@@ -201,7 +205,7 @@ var app = (function($, Handlebars, tm) {
       { 'project_team': project.getTeam().toArray() }
     ));
 
-    $("#project-modal[data-project='" + project.id + "'] .team").replaceWith(tpl_project_team(
+    $("#project-modal[data-project='" + project.id + "'] .team").replaceWith(tpl_project_team_list(
       { 'project_team': project.getTeam().toArray() }
     ));
 
