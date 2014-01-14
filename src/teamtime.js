@@ -88,6 +88,17 @@ var app = (function($, Handlebars, tm) {
     updateProjectTeam(project_id);
   };
 
+  var unassignProjectListener = function unassignProjectListener() {
+    var person_id = $(this).data('person'),
+      person = team.get(person_id),
+      project_id = $(this).data('project'),
+      project = projects.get(project_id);
+
+    person.unassignProject(project);
+    updatePersonProjects(person_id);
+    updateProjectTeam(project_id);
+  };
+
   var addTeammemberListener = function addTeammemberListener() {
     var project_id = $(this).data('project'),
       project = projects.get(project_id),
@@ -99,6 +110,17 @@ var app = (function($, Handlebars, tm) {
     updateProjectTeam(project_id);
   };
 
+  var unassignPersonListener = function unassignPersonListener() {
+    var project_id = $(this).data('project'),
+      project = projects.get(project_id),
+      person_id = $(this).data('person'),
+      person = team.get(person_id);
+
+    project.unassignPerson(person);
+    updatePersonProjects(person_id);
+    updateProjectTeam(project_id);
+  };
+
   var updatePersonProjects = function updatePersonProjects(person_id) {
     var person = team.get(person_id);
 
@@ -106,9 +128,13 @@ var app = (function($, Handlebars, tm) {
       tpl_teammember_projects({ 'person_projects': person.getProjects().toArray() })
     );
 
-    $("#person-modal[data-person='" + person.id + "'] .projects").replaceWith(tpl_teammember_projects_list(
-      { 'person_projects': person.getProjects().toArray() }
-    ));
+    $("#person-modal[data-person='" + person.id + "'] .projects").replaceWith(tpl_teammember_projects_list({
+      'person_id': person.id,
+      'person_projects': person.getProjects().toArray()
+    }));
+
+    $('a.unassign-project').unbind('click', unassignProjectListener);
+    $('a.unassign-project').click(unassignProjectListener);
 
     $("#person-modal[data-person='" + person.id + "'] .select-project").replaceWith(tpl_projects_selector({ 
       'person': person,
@@ -136,8 +162,12 @@ var app = (function($, Handlebars, tm) {
     $('#project-modal .modal-title').html(project.name);
 
     $('#project-modal .modal-body .team').replaceWith(tpl_project_team_list({
+      'project_id': project.id,
       'project_team': project.getTeam().toArray()
     }));
+
+    $('a.unassign-person').unbind('click', unassignPersonListener);
+    $('a.unassign-person').click(unassignPersonListener);
 
     $('#project-modal .select-project-team').replaceWith(tpl_project_team_selector({
       'project': project,
@@ -156,8 +186,12 @@ var app = (function($, Handlebars, tm) {
     $('#person-modal .modal-title').html(person.name);
 
     $('#person-modal .modal-body .projects').replaceWith(tpl_teammember_projects_list({
+      'person_id': person.id,
       'person_projects': person.getProjects().toArray()
     }));
+
+    $('a.unassign-project').unbind('click', unassignProjectListener);
+    $('a.unassign-project').click(unassignProjectListener);
 
     $('#person-modal .select-project').replaceWith(tpl_projects_selector({ 
       'person': person,
@@ -205,9 +239,13 @@ var app = (function($, Handlebars, tm) {
       { 'project_team': project.getTeam().toArray() }
     ));
 
-    $("#project-modal[data-project='" + project.id + "'] .team").replaceWith(tpl_project_team_list(
-      { 'project_team': project.getTeam().toArray() }
-    ));
+    $("#project-modal[data-project='" + project.id + "'] .team").replaceWith(tpl_project_team_list({ 
+      'project_id': project.id,
+      'project_team': project.getTeam().toArray()
+    }));
+
+    $('a.unassign-person').unbind('click', unassignPersonListener);
+    $('a.unassign-person').click(unassignPersonListener);
 
     $("#project-modal[data-project='" + project.id + "'] .select-project-team").replaceWith(tpl_project_team_selector({
       'project': project,
